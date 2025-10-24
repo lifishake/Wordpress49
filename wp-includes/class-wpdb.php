@@ -3987,14 +3987,15 @@ class wpdb {
 	 * @return void|WP_Error
 	 */
 	public function check_database_version() {
-		global $required_mysql_version;
-		$wp_version = wp_get_wp_version();
+		global $wp_version, $required_mysql_version;
+		//$wp_version = wp_get_wp_version();
 
 		// Make sure the server has the required MySQL version.
 		if ( version_compare( $this->db_version(), $required_mysql_version, '<' ) ) {
 			/* translators: 1: WordPress version number, 2: Minimum required MySQL version number. */
 			return new WP_Error( 'database_version', sprintf( __( '<strong>Error:</strong> WordPress %1$s requires MySQL %2$s or higher' ), $wp_version, $required_mysql_version ) );
 		}
+		
 	}
 
 	/**
