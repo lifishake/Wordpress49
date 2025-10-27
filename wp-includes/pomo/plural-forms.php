@@ -5,6 +5,7 @@
  *
  * @since 4.9.0
  */
+ #[AllowDynamicProperties]
 class Plural_Forms {
 	/**
 	 * Operator characters.

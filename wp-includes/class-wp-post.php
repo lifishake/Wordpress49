@@ -19,6 +19,7 @@
  * @property-read string $tag_input
  *
  */
+#[AllowDynamicProperties]
 final class WP_Post {
 
 	/**

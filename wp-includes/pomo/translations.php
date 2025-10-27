@@ -11,6 +11,7 @@ require_once dirname(__FILE__) . '/plural-forms.php';
 require_once dirname(__FILE__) . '/entry.php';
 
 if ( ! class_exists( 'Translations', false ) ):
+#[AllowDynamicProperties]
 class Translations {
 	var $entries = array();
 	var $headers = array();
@@ -279,6 +280,7 @@ if ( ! class_exists( 'NOOP_Translations', false ) ):
 /**
  * Provides the same interface as Translations, but doesn't do anything
  */
+ #[AllowDynamicProperties]
 class NOOP_Translations {
 	var $entries = array();
 	var $headers = array();

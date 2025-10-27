@@ -35,6 +35,7 @@
  * @property string $rich_editing
  * @property string $syntax_highlighting
  */
+#[AllowDynamicProperties]
 class WP_User {
 	/**
 	 * User data container.
