@@ -12,6 +12,7 @@
  * @package Requests
  * @subpackage Cookies
  */
+#[AllowDynamicProperties]
 class Requests_Cookie_Jar implements ArrayAccess, IteratorAggregate {
 	/**
 	 * Actual item data

@@ -980,7 +980,7 @@ function _wp_delete_post_menu_item( $object_id = 0 ) {
  * @param int    $tt_id     Term taxonomy ID. Unused.
  * @param string $taxonomy  Taxonomy slug.
  */
-function _wp_delete_tax_menu_item( $object_id = 0, $tt_id, $taxonomy ) {
+function _wp_delete_tax_menu_item( $object_id, $tt_id, $taxonomy ) {
 	$object_id = (int) $object_id;
 
 	$menu_item_ids = wp_get_associated_nav_menu_items( $object_id, 'taxonomy', $taxonomy );

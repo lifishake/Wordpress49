@@ -4677,26 +4677,54 @@ function normalize_whitespace( $str ) {
 }
 
 /**
- * Properly strip all HTML tags including script and style
+ * Properly strips all HTML tags including 'script' and 'style'.
  *
  * This differs from strip_tags() because it removes the contents of
  * the `<script>` and `<style>` tags. E.g. `strip_tags( '<script>something</script>' )`
- * will return 'something'. wp_strip_all_tags will return ''
+ * will return 'something'. wp_strip_all_tags() will return an empty string.
  *
  * @since 2.9.0
  *
- * @param string $string        String containing HTML tags
+ * @param string $text          String containing HTML tags
  * @param bool   $remove_breaks Optional. Whether to remove left over line breaks and white space chars
  * @return string The processed string.
  */
-function wp_strip_all_tags($string, $remove_breaks = false) {
-	$string = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string );
-	$string = strip_tags($string);
+function wp_strip_all_tags( $text, $remove_breaks = false ) {
+	if ( is_null( $text ) ) {
+		return '';
+	}
 
-	if ( $remove_breaks )
-		$string = preg_replace('/[\r\n\t ]+/', ' ', $string);
+	if ( ! is_scalar( $text ) ) {
+		/*
+		 * To maintain consistency with pre-PHP 8 error levels,
+		 * wp_trigger_error() is used to trigger an E_USER_WARNING,
+		 * rather than _doing_it_wrong(), which triggers an E_USER_NOTICE.
+		 */
+		wp_trigger_error(
+			'',
+			sprintf(
+				/* translators: 1: The function name, 2: The argument number, 3: The argument name, 4: The expected type, 5: The provided type. */
+				__( 'Warning: %1$s expects parameter %2$s (%3$s) to be a %4$s, %5$s given.' ),
+				__FUNCTION__,
+				'#1',
+				'$text',
+				'string',
+				gettype( $text )
+			),
+			E_USER_WARNING
+		);
 
-	return trim( $string );
+		return '';
+	}
+
+	$text = preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text );
+	$text = strip_tags( $text );
+
+	if ( $remove_breaks ) {
+		$text = preg_replace( '/[\r\n\t ]+/', ' ', $text );
+	}
+
+	return trim( $text );
 }
 
 /**

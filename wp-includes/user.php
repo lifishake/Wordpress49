@@ -32,7 +32,11 @@
  */
 function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 	if ( empty($credentials) ) {
-		$credentials = array(); // Back-compat for plugins passing an empty string.
+		$credentials = array(
+			'user_login'    => '',
+			'user_password' => '',
+			'remember'      => false,
+		);
 
 		if ( ! empty($_POST['log']) )
 			$credentials['user_login'] = $_POST['log'];
