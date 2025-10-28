@@ -409,7 +409,7 @@ class WP_Comment_Query {
 		}
 
 		if ( $this->found_comments && $this->query_vars['number'] ) {
-			$this->max_num_pages = ceil( $this->found_comments / $this->query_vars['number'] );
+			$this->max_num_pages = (int) ceil( $this->found_comments / $this->query_vars['number'] );
 		}
 
 		// If querying for a count only, there's nothing more to do.
@@ -430,7 +430,8 @@ class WP_Comment_Query {
 		// Fetch full comment objects from the primed cache.
 		$_comments = array();
 		foreach ( $comment_ids as $comment_id ) {
-			if ( $_comment = get_comment( $comment_id ) ) {
+			$_comment = get_comment( $comment_id );
+			if ( $_comment ) {
 				$_comments[] = $_comment;
 			}
 		}
@@ -819,6 +820,7 @@ class WP_Comment_Query {
 		}
 
 		$join = '';
+		$groupby = '';
 
 		if ( $join_posts_table ) {
 			$join .= "JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID";
