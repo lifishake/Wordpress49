@@ -40,5 +40,5 @@
 
 ### Appearance
 1. 2025/10/29 -- array_merge()不能为空。采用6.9版的写法。 -- wp-includes\widgets.php on line 1160
-
-
+2. 2025/10/29 -- nav-menus.php增加$title的初值。
+3. 2025/10/29 -- validate_file() 增加参数判断，为null时直接return false -- ..\functions.php:5276
