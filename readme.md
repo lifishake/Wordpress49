@@ -35,3 +35,10 @@
 1. 2025/10/29 -- compact()使用前要求每个变量都已经被定义。导入6.9的$new_postarr取值小方法。此处另有从6.9获得的小改动。 -- \wp-includes\post.php on line 3482
 2. 2025/10/29 -- 输入参使用前强转成string类型，将null变成空字符串。 -- wp-includes\formatting.php on line 4383
 
+### Comments
+1. 2025/10/29 -- compact()使用前要求每个变量都已经被定义。增加$groupby赋初始值。
+
+### Appearance
+1. 2025/10/29 -- array_merge()不能为空。采用6.9版的写法。 -- wp-includes\widgets.php on line 1160
+
+
