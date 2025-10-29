@@ -3234,23 +3234,25 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	$user_id = get_current_user_id();
 
 	$defaults = array(
-		'post_author' => $user_id,
-		'post_content' => '',
+		'post_author'           => $user_id,
+		'post_content'          => '',
 		'post_content_filtered' => '',
-		'post_title' => '',
-		'post_excerpt' => '',
-		'post_status' => 'draft',
-		'post_type' => 'post',
-		'comment_status' => '',
-		'ping_status' => '',
-		'post_password' => '',
-		'to_ping' =>  '',
-		'pinged' => '',
-		'post_parent' => 0,
-		'menu_order' => 0,
-		'guid' => '',
-		'import_id' => 0,
-		'context' => '',
+		'post_title'            => '',
+		'post_excerpt'          => '',
+		'post_status'           => 'draft',
+		'post_type'             => 'post',
+		'comment_status'        => '',
+		'ping_status'           => '',
+		'post_password'         => '',
+		'to_ping'               => '',
+		'pinged'                => '',
+		'post_parent'           => 0,
+		'menu_order'            => 0,
+		'guid'                  => '',
+		'import_id'             => 0,
+		'context'               => '',
+		'post_date'             => '',
+		'post_date_gmt'         => '',
 	);
 
 	$postarr = wp_parse_args($postarr, $defaults);
@@ -3281,6 +3283,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		$previous_status = get_post_field('post_status', $post_ID );
 	} else {
 		$previous_status = 'new';
+		$post_before     = null;
 	}
 
 	$post_type = empty( $postarr['post_type'] ) ? 'post' : $postarr['post_type'];
@@ -3308,8 +3311,8 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	 * 1. The post type supports the title, editor, and excerpt fields
 	 * 2. The title, editor, and excerpt fields are all empty
 	 *
-	 * Returning a truthy value to the filter will effectively short-circuit
-	 * the new post being inserted, returning 0. If $wp_error is true, a WP_Error
+	 * Returning a truthy value from the filter will effectively short-circuit
+	 * the new post being inserted and return 0. If $wp_error is true, a WP_Error
 	 * will be returned instead.
 	 *
 	 * @since 3.3.0
@@ -3326,6 +3329,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	$post_status = empty( $postarr['post_status'] ) ? 'draft' : $postarr['post_status'];
+
 	if ( 'attachment' === $post_type && ! in_array( $post_status, array( 'inherit', 'private', 'trash', 'auto-draft' ), true ) ) {
 		$post_status = 'inherit';
 	}
@@ -3333,6 +3337,8 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	if ( ! empty( $postarr['post_category'] ) ) {
 		// Filter out empty terms.
 		$post_category = array_filter( $postarr['post_category'] );
+	} elseif ( $update && ! isset( $postarr['post_category'] ) ) {
+		$post_category = $post_before->post_category;
 	}
 
 	// Make sure we set a valid category.
@@ -3371,25 +3377,12 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	/*
-	 * If the post date is empty (due to having been new or a draft) and status
-	 * is not 'draft' or 'pending', set date to now.
+	 * Resolve the post date from any provided post date or post date GMT strings;
+	 * if none are provided, the date will be set to now.
 	 */
-	if ( empty( $postarr['post_date'] ) || '0000-00-00 00:00:00' == $postarr['post_date'] ) {
-		if ( empty( $postarr['post_date_gmt'] ) || '0000-00-00 00:00:00' == $postarr['post_date_gmt'] ) {
-			$post_date = current_time( 'mysql' );
-		} else {
-			$post_date = get_date_from_gmt( $postarr['post_date_gmt'] );
-		}
-	} else {
-		$post_date = $postarr['post_date'];
-	}
+	$post_date = wp_resolve_post_date( $postarr['post_date'], $postarr['post_date_gmt'] );
 
-	// Validate the date.
-	$mm = substr( $post_date, 5, 2 );
-	$jj = substr( $post_date, 8, 2 );
-	$aa = substr( $post_date, 0, 4 );
-	$valid_date = wp_checkdate( $mm, $jj, $aa, $post_date );
-	if ( ! $valid_date ) {
+	if ( ! $post_date ) {
 		if ( $wp_error ) {
 			return new WP_Error( 'invalid_date', __( 'Invalid date.' ) );
 		} else {
@@ -3407,7 +3400,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 		$post_date_gmt = $postarr['post_date_gmt'];
 	}
 
-	if ( $update || '0000-00-00 00:00:00' == $post_date ) {
+	if ( $update || '0000-00-00 00:00:00' === $post_date ) {
 		$post_modified     = current_time( 'mysql' );
 		$post_modified_gmt = current_time( 'mysql', 1 );
 	} else {
@@ -3416,14 +3409,14 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	if ( 'attachment' !== $post_type ) {
-		if ( 'publish' == $post_status ) {
-			$now = gmdate('Y-m-d H:i:59');
-			if ( mysql2date('U', $post_date_gmt, false) > mysql2date('U', $now, false) ) {
+		$now = gmdate( 'Y-m-d H:i:s' );
+
+		if ( 'publish' === $post_status ) {
+			if ( strtotime( $post_date_gmt ) - strtotime( $now ) >= MINUTE_IN_SECONDS ) {
 				$post_status = 'future';
 			}
-		} elseif ( 'future' == $post_status ) {
-			$now = gmdate('Y-m-d H:i:59');
-			if ( mysql2date('U', $post_date_gmt, false) <= mysql2date('U', $now, false) ) {
+		} elseif ( 'future' === $post_status ) {
+			if ( strtotime( $post_date_gmt ) - strtotime( $now ) < MINUTE_IN_SECONDS ) {
 				$post_status = 'publish';
 			}
 		}
@@ -3459,7 +3452,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	}
 
 	$post_password = isset( $postarr['post_password'] ) ? $postarr['post_password'] : '';
-	if ( 'private' == $post_status ) {
+	if ( 'private' === $post_status ) {
 		$post_password = '';
 	}
 
@@ -3468,6 +3461,13 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	} else {
 		$post_parent = 0;
 	}
+
+	$new_postarr = array_merge(
+		array(
+			'ID' => $post_ID,
+		),
+		compact( array_diff( array_keys( $defaults ), array( 'context', 'filter' ) ) )
+	);
 
 	/**
 	 * Filters the post parent -- used to check for and prevent hierarchy loops.
@@ -3479,7 +3479,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	 * @param array $new_postarr Array of parsed post data.
 	 * @param array $postarr     Array of sanitized, but otherwise unmodified post data.
 	 */
-	$post_parent = apply_filters( 'wp_insert_post_parent', $post_parent, $post_ID, compact( array_keys( $postarr ) ), $postarr );
+	$post_parent = apply_filters( 'wp_insert_post_parent', $post_parent, $post_ID, $new_postarr, $postarr );
 
 	/*
 	 * If the post is being untrashed and it has a desired slug stored in post meta,
@@ -3509,13 +3509,36 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	$post_mime_type = isset( $postarr['post_mime_type'] ) ? $postarr['post_mime_type'] : '';
 
 	// Expected_slashed (everything!).
-	$data = compact( 'post_author', 'post_date', 'post_date_gmt', 'post_content', 'post_content_filtered', 'post_title', 'post_excerpt', 'post_status', 'post_type', 'comment_status', 'ping_status', 'post_password', 'post_name', 'to_ping', 'pinged', 'post_modified', 'post_modified_gmt', 'post_parent', 'menu_order', 'post_mime_type', 'guid' );
+	$data = compact(
+		'post_author',
+		'post_date',
+		'post_date_gmt',
+		'post_content',
+		'post_content_filtered',
+		'post_title',
+		'post_excerpt',
+		'post_status',
+		'post_type',
+		'comment_status',
+		'ping_status',
+		'post_password',
+		'post_name',
+		'to_ping',
+		'pinged',
+		'post_modified',
+		'post_modified_gmt',
+		'post_parent',
+		'menu_order',
+		'post_mime_type',
+		'guid'
+	);
 
 	$emoji_fields = array( 'post_title', 'post_content', 'post_excerpt' );
 
 	foreach ( $emoji_fields as $emoji_field ) {
 		if ( isset( $data[ $emoji_field ] ) ) {
 			$charset = $wpdb->get_col_charset( $wpdb->posts, $emoji_field );
+
 			if ( 'utf8' === $charset ) {
 				$data[ $emoji_field ] = wp_encode_emoji( $data[ $emoji_field ] );
 			}
@@ -3633,7 +3656,7 @@ function wp_insert_post( $postarr, $wp_error = false ) {
 	$current_guid = get_post_field( 'guid', $post_ID );
 
 	// Set GUID.
-	if ( ! $update && '' == $current_guid ) {
+	if ( ! $update && '' === $current_guid ) {
 		$wpdb->update( $wpdb->posts, array( 'guid' => get_permalink( $post_ID ) ), $where );
 	}
 
@@ -3916,6 +3939,43 @@ function check_and_publish_future_post( $post_id ) {
 
 	// wp_publish_post() returns no meaningful value.
 	wp_publish_post( $post_id );
+}
+
+/**
+ * Uses wp_checkdate to return a valid Gregorian-calendar value for post_date.
+ * If post_date is not provided, this first checks post_date_gmt if provided,
+ * then falls back to use the current time.
+ *
+ * For back-compat purposes in wp_insert_post, an empty post_date and an invalid
+ * post_date_gmt will continue to return '1970-01-01 00:00:00' rather than false.
+ *
+ * @since 5.7.0
+ *
+ * @param string $post_date     The date in mysql format (`Y-m-d H:i:s`).
+ * @param string $post_date_gmt The GMT date in mysql format (`Y-m-d H:i:s`).
+ * @return string|false A valid Gregorian-calendar date string, or false on failure.
+ */
+function wp_resolve_post_date( $post_date = '', $post_date_gmt = '' ) {
+	// If the date is empty, set the date to now.
+	if ( empty( $post_date ) || '0000-00-00 00:00:00' === $post_date ) {
+		if ( empty( $post_date_gmt ) || '0000-00-00 00:00:00' === $post_date_gmt ) {
+			$post_date = current_time( 'mysql' );
+		} else {
+			$post_date = get_date_from_gmt( $post_date_gmt );
+		}
+	}
+
+	// Validate the date.
+	$month = (int) substr( $post_date, 5, 2 );
+	$day   = (int) substr( $post_date, 8, 2 );
+	$year  = (int) substr( $post_date, 0, 4 );
+
+	$valid_date = wp_checkdate( $month, $day, $year, $post_date );
+
+	if ( ! $valid_date ) {
+		return false;
+	}
+	return $post_date;
 }
 
 /**
