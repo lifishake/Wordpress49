@@ -475,7 +475,6 @@ class WP_Admin_Bar {
 		$is_parent = ! empty( $node->children );
 		$has_link  = ! empty( $node->href );
 
-		// Allow only numeric values, then casted to integers, and allow a tabindex value of `0` for a11y.
 		$tabindex = ( isset( $node->meta['tabindex'] ) && is_numeric( $node->meta['tabindex'] ) ) ? (int) $node->meta['tabindex'] : '';
 		$aria_attributes = ( '' !== $tabindex ) ? ' tabindex="' . $tabindex . '"' : '';
 

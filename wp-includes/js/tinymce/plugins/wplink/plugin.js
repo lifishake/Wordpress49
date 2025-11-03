@@ -96,7 +96,6 @@
 		var emailRegex = /^(mailto:)?[a-z0-9._%+-]+@[a-z0-9][a-z0-9.-]*\.[a-z]{2,63}$/i;
 		var urlRegex1 = /^https?:\/\/([^\s/?.#-][^\s\/?.#]*\.?)+(\/[^\s"]*)?$/i;
 		var urlRegex2 = /^https?:\/\/[^\/]+\.[^\/]+($|\/)/i;
-		var speak = ( typeof window.wp !== 'undefined' && window.wp.a11y && window.wp.a11y.speak ) ? window.wp.a11y.speak : function() {};
 		var hasLinkError = false;
 
 		function getSelectedLink() {
@@ -164,7 +163,6 @@
 			if ( /^http/i.test( href ) && ( ! urlRegex1.test( href ) || ! urlRegex2.test( href ) ) ) {
 				hasLinkError = true;
 				$link.attr( 'data-wplink-url-error', 'true' );
-				speak( editor.translate( 'Warning: the link has been inserted but may have errors. Please test it.' ), 'assertive' );
 			} else {
 				$link.removeAttr( 'data-wplink-url-error' );
 			}
@@ -276,11 +274,6 @@
 
 			inputInstance.reset();
 			editor.nodeChanged();
-
-			// Audible confirmation message when a link has been inserted in the Editor.
-			if ( typeof window.wpLinkL10n !== 'undefined' && ! hasLinkError ) {
-				speak( window.wpLinkL10n.linkInserted );
-			}
 		} );
 
 		editor.addCommand( 'wp_link_cancel', function() {
@@ -435,11 +428,6 @@
 						select: function( event, ui ) {
 							$input.val( ui.item.permalink );
 							$( element.firstChild.nextSibling ).val( ui.item.title );
-
-							if ( 9 === event.keyCode && typeof window.wpLinkL10n !== 'undefined' ) {
-								// Audible confirmation message when a link has been selected.
-								speak( window.wpLinkL10n.linkSelected );
-							}
 
 							return false;
 						},

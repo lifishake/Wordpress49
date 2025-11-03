@@ -255,9 +255,6 @@
 			// Add all notifications in the sorted order.
 			_.each( notifications, function( notification ) {
 				var notificationContainer;
-				if ( wp.a11y && ( ! previousNotificationsByCode[ notification.code ] || ! _.isEqual( notification.message, previousNotificationsByCode[ notification.code ].message ) ) ) {
-					wp.a11y.speak( notification.message, 'assertive' );
-				}
 				notificationContainer = $( notification.render() );
 				notification.container = notificationContainer;
 				listElement.append( notificationContainer ); // @todo Consider slideDown() as enhancement.
@@ -2109,9 +2106,6 @@
 								img.src = src;
 							}
 						});
-						if ( 'local' !== section.params.filter_type ) {
-							wp.a11y.speak( api.settings.l10n.themeSearchResults.replace( '%d', data.info.results ) );
-						}
 					}
 
 					_.delay( section.renderScreenshots, 100 ); // Wait for the controls to become visible.
@@ -2122,7 +2116,6 @@
 				} else {
 					if ( 0 === section.loaded ) {
 						section.container.find( '.no-themes' ).show();
-						wp.a11y.speak( section.container.find( '.no-themes' ).text() );
 					} else {
 						section.fullyLoaded = true;
 					}
@@ -2141,7 +2134,6 @@
 			request.fail(function( data ) {
 				if ( 'undefined' === typeof data ) {
 					section.container.find( '.unexpected-error' ).show();
-					wp.a11y.speak( section.container.find( '.unexpected-error' ).text() );
 				} else if ( 'undefined' !== typeof console && console.error ) {
 					console.error( data );
 				}
@@ -2235,7 +2227,6 @@
 
 			if ( 0 === count ) {
 				section.container.find( noFilter ).show();
-				wp.a11y.speak( section.container.find( noFilter ).text() );
 			} else {
 				section.container.find( noFilter ).hide();
 			}
@@ -2432,7 +2423,6 @@
 					countEl.text( count );
 					displayed.fadeIn( 180 );
 				} );
-				wp.a11y.speak( api.settings.l10n.announceThemeCount.replace( '%d', count ) );
 			}
 		},
 
@@ -2573,7 +2563,6 @@
 			section.$body.addClass( 'modal-open' );
 			section.containFocus( section.overlay );
 			section.updateLimits();
-			wp.a11y.speak( api.settings.l10n.announceThemeDetails.replace( '%s', theme.name ) );
 			if ( callback ) {
 				callback();
 			}

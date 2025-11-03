@@ -859,7 +859,7 @@ var modern = (function () {
     },
     tools: {
       title: 'Tools',
-      items: 'spellchecker spellcheckerlanguage | a11ycheck code'
+      items: 'spellchecker spellcheckerlanguage'
     },
     table: { title: 'Table' },
     help: { title: 'Help' }

@@ -254,8 +254,6 @@
 			if ( ! this.searchMatchesCount ) {
 				message = l10n.noWidgetsFound;
 			}
-
-			wp.a11y.speak( message );
 		}, 500 ),
 
 		// Changes visibility of available widgets
@@ -806,10 +804,8 @@
 
 					if ( isMoveUp ) {
 						self.moveUp();
-						wp.a11y.speak( l10n.widgetMovedUp );
 					} else {
 						self.moveDown();
-						wp.a11y.speak( l10n.widgetMovedDown );
 					}
 
 					$( this ).focus(); // re-focus after the container was moved
@@ -1998,13 +1994,11 @@
 
 				addNewWidgetBtn.attr({ 'tabindex': '-1', 'aria-hidden': 'true' });
 				reorderBtn.attr( 'aria-label', l10n.reorderLabelOff );
-				wp.a11y.speak( l10n.reorderModeOn );
 				// Hide widget titles while reordering: title is already in the reorder controls.
 				widgetsTitle.attr( 'aria-hidden', 'true' );
 			} else {
 				addNewWidgetBtn.removeAttr( 'tabindex aria-hidden' );
 				reorderBtn.attr( 'aria-label', l10n.reorderLabelOn );
-				wp.a11y.speak( l10n.reorderModeOff );
 				widgetsTitle.attr( 'aria-hidden', 'false' );
 			}
 		},

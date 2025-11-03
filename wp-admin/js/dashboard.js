@@ -426,10 +426,6 @@ jQuery( function( $ ) {
 					$results.html( template( templateParams ) );
 				}
 
-				if ( 'user' === initiatedBy ) {
-					wp.a11y.speak( communityEventsData.l10n.city_updated.replace( l10nPlaceholder, templateParams.location.description ), 'assertive' );
-				}
-
 				elementVisibility['#community-events-location-message'] = true;
 				elementVisibility['.community-events-toggle-location']  = true;
 				elementVisibility['.community-events-results']          = true;
@@ -437,20 +433,11 @@ jQuery( function( $ ) {
 			} else if ( templateParams.unknownCity ) {
 				template = wp.template( 'community-events-could-not-locate' );
 				$( '.community-events-could-not-locate' ).html( template( templateParams ) );
-				wp.a11y.speak( communityEventsData.l10n.could_not_locate_city.replace( l10nPlaceholder, templateParams.unknownCity ) );
 
 				elementVisibility['.community-events-errors']           = true;
 				elementVisibility['.community-events-could-not-locate'] = true;
 
 			} else if ( templateParams.error && 'user' === initiatedBy ) {
-				/*
-				 * Errors messages are only shown for requests that were initiated
-				 * by the user, not for ones that were initiated by the app itself.
-				 * Showing error messages for an event that user isn't aware of
-				 * could be confusing or unnecessarily distracting.
-				 */
-				wp.a11y.speak( communityEventsData.l10n.error_occurred_please_try_again );
-
 				elementVisibility['.community-events-errors']         = true;
 				elementVisibility['.community-events-error-occurred'] = true;
 			} else {

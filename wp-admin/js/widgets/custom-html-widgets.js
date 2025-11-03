@@ -148,7 +148,6 @@ wp.customHtmlWidgets = ( function( $ ) {
 				control.errorNoticeContainer.empty();
 				control.errorNoticeContainer.append( errorNotice );
 				control.errorNoticeContainer.slideDown( 'fast' );
-				wp.a11y.speak( message );
 			} else {
 				control.errorNoticeContainer.slideUp( 'fast' );
 			}

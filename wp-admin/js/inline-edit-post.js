@@ -426,18 +426,15 @@ var inlineEditPost;
 						$( inlineEditPost.what + id ).hide().fadeIn( 400, function() {
 							// Move focus back to the Quick Edit link. $( this ) is the row being animated.
 							$( this ).find( '.editinline' ).focus();
-							wp.a11y.speak( inlineEditL10n.saved );
 						});
 					} else {
 						r = r.replace( /<.[^<>]*?>/g, '' );
 						$errorNotice.removeClass( 'hidden' );
 						$error.html( r );
-						wp.a11y.speak( $error.text() );
 					}
 				} else {
 					$errorNotice.removeClass( 'hidden' );
 					$error.html( inlineEditL10n.error );
-					wp.a11y.speak( inlineEditL10n.error );
 				}
 			},
 		'html');

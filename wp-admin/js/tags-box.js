@@ -205,8 +205,6 @@ var tagBox, array_unique_noempty;
 				default:
 					return;
 			}
-
-			window.wp.a11y.speak( message, 'assertive' );
 		},
 
 		init : function() {

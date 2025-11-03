@@ -99,10 +99,6 @@ wp.themePluginEditor = (function( $ ) {
 		// Attach event handlers.
 		component.warningTabbables.on( 'keydown', component.constrainTabbing );
 		component.warning.on( 'click', '.file-editor-warning-dismiss', component.dismissWarning );
-		// Make screen readers announce the warning message after a short delay (necessary for some screen readers).
-		setTimeout( function() {
-			wp.a11y.speak( wp.sanitize.stripTags( rawMessage.replace( /\s+/g, ' ' ) ), 'assertive' );
-		}, 1000 );
 	};
 
 	/**
@@ -273,8 +269,6 @@ wp.themePluginEditor = (function( $ ) {
 				notice.onDismiss( notice );
 			}
 		} );
-
-		wp.a11y.speak( notice.message );
 
 		component.noticesContainer.append( noticeElement );
 		noticeElement.slideDown( 'fast' );

@@ -132,17 +132,11 @@
 			this.container.addEventListener( 'play', function() {
 				button.className = 'wp-custom-header-video-button wp-custom-header-video-play';
 				button.innerHTML = settings.l10n.pause;
-				if ( 'a11y' in window.wp ) {
-					window.wp.a11y.speak( settings.l10n.playSpeak);
-				}
 			});
 
 			this.container.addEventListener( 'pause', function() {
 				button.className = 'wp-custom-header-video-button wp-custom-header-video-pause';
 				button.innerHTML = settings.l10n.play;
-				if ( 'a11y' in window.wp ) {
-					window.wp.a11y.speak( settings.l10n.pauseSpeak);
-				}
 			});
 
 			this.ready();

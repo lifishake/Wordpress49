@@ -439,8 +439,6 @@
 			.attr( 'aria-label', wp.updates.l10n.pluginUpdatedLabel.replace( '%s', response.pluginName ) )
 			.text( wp.updates.l10n.pluginUpdated );
 
-		wp.a11y.speak( wp.updates.l10n.updatedMsg, 'polite' );
-
 		wp.updates.decrementCount( 'plugin' );
 
 		$document.trigger( 'wp-plugin-update-success', response );
@@ -520,8 +518,6 @@
 			} );
 		}
 
-		wp.a11y.speak( errorMessage, 'assertive' );
-
 		$document.trigger( 'wp-plugin-update-error', response );
 	};
 
@@ -559,8 +555,6 @@
 			.attr( 'aria-label', wp.updates.l10n.pluginInstallingLabel.replace( '%s', $message.data( 'name' ) ) )
 			.text( wp.updates.l10n.installing );
 
-		wp.a11y.speak( wp.updates.l10n.installingMsg, 'polite' );
-
 		// Remove previous error messages, if any.
 		$card.removeClass( 'plugin-card-install-failed' ).find( '.notice.notice-error' ).remove();
 
@@ -594,8 +588,6 @@
 		} else {
 			$message.addClass( 'button-disabled' );
 		}
-
-		wp.a11y.speak( wp.updates.l10n.installedMsg, 'polite' );
 
 		$document.trigger( 'wp-plugin-install-success', response );
 
@@ -658,8 +650,6 @@
 			.attr( 'aria-label', wp.updates.l10n.pluginInstallFailedLabel.replace( '%s', $button.data( 'name' ) ) )
 			.text( wp.updates.l10n.installFailedShort );
 
-		wp.a11y.speak( errorMessage, 'assertive' );
-
 		$document.trigger( 'wp-plugin-install-error', response );
 	};
 
@@ -689,8 +679,6 @@
 				'aria-label': wp.updates.l10n.activateImporterLabel.replace( '%s', response.pluginName )
 			})
 			.text( wp.updates.l10n.activateImporter );
-
-		wp.a11y.speak( wp.updates.l10n.installedMsg, 'polite' );
 
 		$document.trigger( 'wp-importer-install-success', response );
 	};
@@ -731,8 +719,6 @@
 			.text( wp.updates.l10n.installNow )
 			.attr( 'aria-label', wp.updates.l10n.installNowLabel.replace( '%s', pluginName ) );
 
-		wp.a11y.speak( errorMessage, 'assertive' );
-
 		$document.trigger( 'wp-importer-install-error', response );
 	};
 
@@ -762,8 +748,6 @@
 				.data( 'originaltext', $link.html() )
 				.text( wp.updates.l10n.deleting );
 		}
-
-		wp.a11y.speak( wp.updates.l10n.deleting, 'polite' );
 
 		$document.trigger( 'wp-plugin-deleting', args );
 
@@ -854,8 +838,6 @@
 				}
 			}
 		} );
-
-		wp.a11y.speak( wp.updates.l10n.pluginDeleted, 'polite' );
 
 		$document.trigger( 'wp-plugin-delete-success', response );
 	};
@@ -965,7 +947,6 @@
 			$notice.data( 'originaltext', $notice.html() );
 		}
 
-		wp.a11y.speak( wp.updates.l10n.updatingMsg, 'polite' );
 		$notice.text( wp.updates.l10n.updating );
 
 		$document.trigger( 'wp-theme-updating', args );
@@ -1023,7 +1004,6 @@
 		}
 
 		wp.updates.addAdminNotice( _.extend( { selector: $notice }, updatedMessage ) );
-		wp.a11y.speak( wp.updates.l10n.updatedMsg, 'polite' );
 
 		wp.updates.decrementCount( 'theme' );
 
@@ -1077,8 +1057,6 @@
 			message:   errorMessage
 		} );
 
-		wp.a11y.speak( errorMessage, 'polite' );
-
 		$document.trigger( 'wp-theme-update-error', response );
 	};
 
@@ -1111,7 +1089,6 @@
 		$message
 			.text( wp.updates.l10n.installing )
 			.attr( 'aria-label', wp.updates.l10n.themeInstallingLabel.replace( '%s', $message.data( 'name' ) ) );
-		wp.a11y.speak( wp.updates.l10n.installingMsg, 'polite' );
 
 		// Remove previous error messages, if any.
 		$( '.install-theme-info, [data-slug="' + args.slug + '"]' ).removeClass( 'theme-install-failed' ).find( '.notice.notice-error' ).remove();
@@ -1143,8 +1120,6 @@
 			.addClass( 'updated-message disabled' )
 			.attr( 'aria-label', wp.updates.l10n.themeInstalledLabel.replace( '%s', response.themeName ) )
 			.text( wp.updates.l10n.themeInstalled );
-
-		wp.a11y.speak( wp.updates.l10n.installedMsg, 'polite' );
 
 		setTimeout( function() {
 
@@ -1223,8 +1198,6 @@
 			.attr( 'aria-label', wp.updates.l10n.themeInstallFailedLabel.replace( '%s', $button.data( 'name' ) ) )
 			.text( wp.updates.l10n.installFailedShort );
 
-		wp.a11y.speak( errorMessage, 'assertive' );
-
 		$document.trigger( 'wp-theme-install-error', response );
 	};
 
@@ -1259,8 +1232,6 @@
 				.data( 'originaltext', $button.html() )
 				.text( wp.updates.l10n.deleting );
 		}
-
-		wp.a11y.speak( wp.updates.l10n.deleting, 'polite' );
 
 		// Remove previous error messages, if any.
 		$( '.theme-info .update-message' ).remove();
@@ -1324,8 +1295,6 @@
 			} );
 		}
 
-		wp.a11y.speak( wp.updates.l10n.themeDeleted, 'polite' );
-
 		$document.trigger( 'wp-theme-delete-success', response );
 	};
 
@@ -1374,8 +1343,6 @@
 		}
 
 		$button.html( $button.data( 'originaltext' ) );
-
-		wp.a11y.speak( errorMessage, 'assertive' );
 
 		$document.trigger( 'wp-theme-delete-error', response );
 	};
@@ -1700,8 +1667,6 @@
 				.removeAttr( 'aria-label' )
 				.text( errorMessage );
 
-		wp.a11y.speak( errorMessage, 'assertive' );
-
 		return false;
 	};
 
@@ -1835,7 +1800,6 @@
 				}
 			}
 
-			wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
 		} );
 
 		/**
@@ -1913,7 +1877,6 @@
 						.removeClass( 'updating-message' )
 						.text( wp.updates.l10n.installNow );
 
-					wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
 				} );
 			}
 
@@ -1949,7 +1912,6 @@
 						.text( wp.updates.l10n.installNow )
 						.attr( 'aria-label', wp.updates.l10n.installNowLabel.replace( '%s', pluginName ) );
 
-					wp.a11y.speak( wp.updates.l10n.updateCancel, 'polite' );
 				} );
 			}
 
@@ -2244,12 +2206,6 @@
 				$( 'body' ).removeClass( 'loading-content' );
 				$pluginFilter.append( response.items );
 				delete wp.updates.searchRequest;
-
-				if ( 0 === response.count ) {
-					wp.a11y.speak( wp.updates.l10n.noPluginsFound );
-				} else {
-					wp.a11y.speak( wp.updates.l10n.pluginsFound.replace( '%d', response.count ) );
-				}
 			} );
 		}, 500 ) );
 
@@ -2320,11 +2276,6 @@
 				$bulkActionForm.append( response.items );
 				delete wp.updates.searchRequest;
 
-				if ( 0 === response.count ) {
-					wp.a11y.speak( wp.updates.l10n.noPluginsFound );
-				} else {
-					wp.a11y.speak( wp.updates.l10n.pluginsFound.replace( '%d', response.count ) );
-				}
 			} );
 		}, 500 ) );
 

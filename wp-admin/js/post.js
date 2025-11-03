@@ -990,7 +990,6 @@ jQuery(document).ready( function($) {
 					permalink.html(permalinkOrig);
 					real_slug.val(new_slug);
 					$( '.edit-slug' ).focus();
-					wp.a11y.speak( postL10n.permalinkSaved );
 				}
 			);
 		});

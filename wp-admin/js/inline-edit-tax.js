@@ -222,22 +222,15 @@ inlineEditTax = {
 						row.hide().fadeIn( 400, function() {
 							// Move focus back to the Quick Edit link.
 							row.find( '.editinline' ).focus();
-							wp.a11y.speak( inlineEditL10n.saved );
 						});
 
 					} else {
 						$errorNotice.removeClass( 'hidden' );
 						$error.html( r );
-						/*
-						 * Some error strings may contain HTML entities (e.g. `&#8220`), let's use
-						 * the HTML element's text.
-						 */
-						wp.a11y.speak( $error.text() );
 					}
 				} else {
 					$errorNotice.removeClass( 'hidden' );
 					$error.html( inlineEditL10n.error );
-					wp.a11y.speak( inlineEditL10n.error );
 				}
 			}
 		);

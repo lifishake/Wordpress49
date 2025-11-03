@@ -265,7 +265,6 @@ wp.textWidgets = ( function( $ ) {
 				});
 
 				/**
-				 * Show a pointer, focus on dismiss, and speak the contents for a11y.
 				 *
 				 * @param {jQuery} pointerElement Pointer element.
 				 * @returns {void}
@@ -273,9 +272,6 @@ wp.textWidgets = ( function( $ ) {
 				showPointerElement = function( pointerElement ) {
 					pointerElement.show();
 					pointerElement.find( '.close' ).focus();
-					wp.a11y.speak( pointerElement.find( 'h3, p' ).map( function() {
-						return $( this ).text();
-					} ).get().join( '\n\n' ) );
 				};
 
 				editor = window.tinymce.get( id );

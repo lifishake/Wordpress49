@@ -159,7 +159,6 @@
 
 			// If the link is not previewable, prevent the browser from navigating to it.
 			if ( ! api.isLinkPreviewable( link[0] ) ) {
-				wp.a11y.speak( api.settings.l10n.linkUnpreviewable );
 				event.preventDefault();
 				return;
 			}
@@ -196,7 +195,6 @@
 
 			// If the link is not previewable, prevent the browser from navigating to it.
 			if ( 'GET' !== form.prop( 'method' ).toUpperCase() || ! api.isLinkPreviewable( urlParser ) ) {
-				wp.a11y.speak( api.settings.l10n.formUnpreviewable );
 				event.preventDefault();
 				return;
 			}

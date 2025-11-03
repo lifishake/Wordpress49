@@ -102,7 +102,6 @@
 
 				if ( $.ui.keyCode.TAB === event.keyCode ) {
 					// Audible confirmation message when a tag has been selected.
-					window.wp.a11y.speak( window.tagsSuggestL10n.termSelected, 'assertive' );
 					event.preventDefault();
 				} else if ( $.ui.keyCode.ENTER === event.keyCode ) {
 					// Do not close Quick Edit / Bulk Edit

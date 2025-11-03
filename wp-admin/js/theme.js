@@ -1300,15 +1300,6 @@ themes.view.Themes = wp.Backbone.View.extend({
 			self.theme.trigger( 'theme:expand', previousModel.cid );
 
 		}
-	},
-
-	// Dispatch audible search results feedback message
-	announceSearchResults: function( count ) {
-		if ( 0 === count ) {
-			wp.a11y.speak( l10n.noThemesFound );
-		} else {
-			wp.a11y.speak( l10n.themesFound.replace( '%d', count ) );
-		}
 	}
 });
 
@@ -1748,7 +1739,6 @@ themes.view.Installer = themes.view.Appearance.extend({
 		}
 
 		if ( ! tags ) {
-			wp.a11y.speak( l10n.selectFeatureFilter );
 			return;
 		}
 

@@ -296,10 +296,8 @@
 			} else if ( page > 1 ) {
 				$section.addClass( 'loading-more' );
 				$content.attr( 'aria-busy', 'true' );
-				wp.a11y.speak( api.Menus.data.l10n.itemsLoadingMore );
 			} else if ( '' === self.searchTerm ) {
 				$content.html( '' );
-				wp.a11y.speak( '' );
 				return;
 			}
 
@@ -336,18 +334,12 @@
 				} else {
 					self.pages.search = self.pages.search + 1;
 				}
-				if ( items && page > 1 ) {
-					wp.a11y.speak( api.Menus.data.l10n.itemsFoundMore.replace( '%d', items.length ) );
-				} else if ( items && page === 1 ) {
-					wp.a11y.speak( api.Menus.data.l10n.itemsFound.replace( '%d', items.length ) );
-				}
 			});
 
 			self.currentRequest.fail(function( data ) {
 				// data.message may be undefined, for example when typing slow and the request is aborted.
 				if ( data.message ) {
 					$content.empty().append( $( '<li class="nothing-found"></li>' ).text( data.message ) );
-					wp.a11y.speak( data.message );
 				}
 				self.pages.search = -1;
 			});
@@ -1418,8 +1410,6 @@
 				}
 			} );
 
-			wp.a11y.speak( api.Menus.data.l10n.menuAdded );
-
 			// Focus on the new menu section.
 			menuSection.focus( {
 				completeCallback: function() {
@@ -1809,7 +1799,6 @@
 
 				control.container.slideUp( function() {
 					control.setting.set( false );
-					wp.a11y.speak( api.Menus.data.l10n.itemDeleted );
 					$adjacentFocusTarget.focus(); // keyboard accessibility
 				} );
 
@@ -2139,7 +2128,6 @@
 		 */
 		moveUp: function() {
 			this._changePosition( -1 );
-			wp.a11y.speak( api.Menus.data.l10n.movedUp );
 		},
 
 		/**
@@ -2147,14 +2135,12 @@
 		 */
 		moveDown: function() {
 			this._changePosition( 1 );
-			wp.a11y.speak( api.Menus.data.l10n.movedDown );
 		},
 		/**
 		 * Move menu item and all children up one level of depth.
 		 */
 		moveLeft: function() {
 			this._changeDepth( -1 );
-			wp.a11y.speak( api.Menus.data.l10n.movedLeft );
 		},
 
 		/**
@@ -2162,7 +2148,6 @@
 		 */
 		moveRight: function() {
 			this._changeDepth( 1 );
-			wp.a11y.speak( api.Menus.data.l10n.movedRight );
 		},
 
 		/**
@@ -2723,7 +2708,6 @@
 				section.collapse({
 					completeCallback: function() {
 						removeSection();
-						wp.a11y.speak( api.Menus.data.l10n.menuDeleted );
 						api.panel( 'nav_menus' ).focus();
 					}
 				});
@@ -2832,12 +2816,10 @@
 			if ( this.isReordering ) {
 				addNewItemBtn.attr({ 'tabindex': '-1', 'aria-hidden': 'true' });
 				reorderBtn.attr( 'aria-label', api.Menus.data.l10n.reorderLabelOff );
-				wp.a11y.speak( api.Menus.data.l10n.reorderModeOn );
 				itemsTitle.attr( 'aria-hidden', 'false' );
 			} else {
 				addNewItemBtn.removeAttr( 'tabindex aria-hidden' );
 				reorderBtn.attr( 'aria-label', api.Menus.data.l10n.reorderLabelOn );
-				wp.a11y.speak( api.Menus.data.l10n.reorderModeOff );
 				itemsTitle.attr( 'aria-hidden', 'true' );
 			}
 
@@ -3007,8 +2989,6 @@
 			setting.preview();
 			menuControl.debouncedReflowMenuItems();
 
-			wp.a11y.speak( api.Menus.data.l10n.itemAdded );
-
 			return menuItemControl;
 		},
 
@@ -3099,8 +3079,6 @@
 			// Clear name field.
 			nameInput.val( '' );
 			nameInput.removeClass( 'invalid' );
-
-			wp.a11y.speak( api.Menus.data.l10n.menuAdded );
 
 			// Focus on the new menu section.
 			menuSection.focus();

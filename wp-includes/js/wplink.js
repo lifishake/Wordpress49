@@ -389,8 +389,6 @@ var wpLink;
 			textarea.focus();
 			$( textarea ).trigger( 'change' );
 
-			// Audible confirmation message when a link has been inserted in the Editor.
-			wp.a11y.speak( wpLinkL10n.linkInserted );
 		},
 
 		mceUpdate: function() {
@@ -457,9 +455,6 @@ var wpLink;
 			}
 
 			editor.nodeChanged();
-
-			// Audible confirmation message when a link has been inserted in the Editor.
-			wp.a11y.speak( wpLinkL10n.linkInserted );
 		},
 
 		updateFields: function( e, li ) {

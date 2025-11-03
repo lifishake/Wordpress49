@@ -83,8 +83,6 @@ function wp_default_scripts( &$scripts ) {
 		'expandMenu'   => __( 'Expand Main menu' ),
 	) );
 
-	$scripts->add( 'wp-a11y', "/wp-includes/js/wp-a11y$suffix.js", array( 'jquery' ), false, 1 );
-
 	$scripts->add( 'sack', "/wp-includes/js/tw-sack$suffix.js", array(), '1.6.1', 1 );
 
 	$scripts->add( 'quicktags', "/wp-includes/js/quicktags$suffix.js", array(), false, 1 );
@@ -217,7 +215,7 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'jquery-effects-transfer', "/wp-includes/js/jquery/ui/effect-transfer$dev_suffix.js", array('jquery-effects-core'), '1.11.4', 1 );
 
 	$scripts->add( 'jquery-ui-accordion', "/wp-includes/js/jquery/ui/accordion$dev_suffix.js", array('jquery-ui-core', 'jquery-ui-widget'), '1.11.4', 1 );
-	$scripts->add( 'jquery-ui-autocomplete', "/wp-includes/js/jquery/ui/autocomplete$dev_suffix.js", array( 'jquery-ui-menu', 'wp-a11y' ), '1.11.4', 1 );
+	$scripts->add( 'jquery-ui-autocomplete', "/wp-includes/js/jquery/ui/autocomplete$dev_suffix.js", array( 'jquery-ui-menu' ), '1.11.4', 1 );
 	$scripts->add( 'jquery-ui-button', "/wp-includes/js/jquery/ui/button$dev_suffix.js", array('jquery-ui-core', 'jquery-ui-widget'), '1.11.4', 1 );
 	$scripts->add( 'jquery-ui-datepicker', "/wp-includes/js/jquery/ui/datepicker$dev_suffix.js", array('jquery-ui-core'), '1.11.4', 1 );
 	$scripts->add( 'jquery-ui-dialog', "/wp-includes/js/jquery/ui/dialog$dev_suffix.js", array('jquery-ui-resizable', 'jquery-ui-draggable', 'jquery-ui-button', 'jquery-ui-position'), '1.11.4', 1 );
@@ -472,7 +470,7 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'htmlhint', '/wp-includes/js/codemirror/htmlhint.js', array(), '0.9.14-xwp' );
 	$scripts->add( 'htmlhint-kses', '/wp-includes/js/codemirror/htmlhint-kses.js', array( 'htmlhint' ) );
 	$scripts->add( 'code-editor', "/wp-admin/js/code-editor$suffix.js", array( 'jquery', 'wp-codemirror', 'underscore' ) );
-	$scripts->add( 'wp-theme-plugin-editor', "/wp-admin/js/theme-plugin-editor$suffix.js", array( 'wp-util', 'wp-sanitize', 'jquery', 'jquery-ui-core', 'wp-a11y', 'underscore' ) );
+	$scripts->add( 'wp-theme-plugin-editor', "/wp-admin/js/theme-plugin-editor$suffix.js", array( 'wp-util', 'wp-sanitize', 'jquery', 'jquery-ui-core', 'underscore' ) );
 	did_action( 'init' ) && $scripts->add_inline_script( 'wp-theme-plugin-editor', sprintf( 'wp.themePluginEditor.l10n = %s;', wp_json_encode( array(
 		'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' ),
 		'saveError' => __( 'Something went wrong. Your change may not have been saved. Please try again. There is also a chance that you may need to manually fix and upload the file over FTP.' ),
@@ -518,7 +516,7 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'admin-bar', "/wp-includes/js/admin-bar$suffix.js", array(), false, 1 );
 
-	$scripts->add( 'wplink', "/wp-includes/js/wplink$suffix.js", array( 'jquery', 'wp-a11y' ), false, 1 );
+	$scripts->add( 'wplink', "/wp-includes/js/wplink$suffix.js", array( 'jquery' ), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'wplink', 'wpLinkL10n', array(
 		'title' => __('Insert/edit link'),
 		'update' => __('Update'),
@@ -539,10 +537,10 @@ function wp_default_scripts( &$scripts ) {
 
 	$scripts->add( 'customize-base',     "/wp-includes/js/customize-base$suffix.js",     array( 'jquery', 'json2', 'underscore' ), false, 1 );
 	$scripts->add( 'customize-loader',   "/wp-includes/js/customize-loader$suffix.js",   array( 'customize-base' ), false, 1 );
-	$scripts->add( 'customize-preview',  "/wp-includes/js/customize-preview$suffix.js",  array( 'wp-a11y', 'customize-base' ), false, 1 );
+	$scripts->add( 'customize-preview',  "/wp-includes/js/customize-preview$suffix.js",  array( 'customize-base' ), false, 1 );
 	$scripts->add( 'customize-models',   "/wp-includes/js/customize-models.js", array( 'underscore', 'backbone' ), false, 1 );
 	$scripts->add( 'customize-views',    "/wp-includes/js/customize-views.js",  array( 'jquery', 'underscore', 'imgareaselect', 'customize-models', 'media-editor', 'media-views' ), false, 1 );
-	$scripts->add( 'customize-controls', "/wp-admin/js/customize-controls$suffix.js", array( 'customize-base', 'wp-a11y', 'wp-util', 'jquery-ui-core' ), false, 1 );
+	$scripts->add( 'customize-controls', "/wp-admin/js/customize-controls$suffix.js", array( 'customize-base', 'wp-util', 'jquery-ui-core' ), false, 1 );
 	did_action( 'init' ) && $scripts->localize( 'customize-controls', '_wpCustomizeControlsL10n', array(
 		'activate'           => __( 'Activate &amp; Publish' ),
 		'save'               => __( 'Save &amp; Publish' ), // @todo Remove as not required.
@@ -614,8 +612,6 @@ function wp_default_scripts( &$scripts ) {
 	$scripts->add( 'customize-nav-menus', "/wp-admin/js/customize-nav-menus$suffix.js", array( 'jquery', 'wp-backbone', 'customize-controls', 'accordion', 'nav-menu' ), false, 1 );
 	$scripts->add( 'customize-preview-nav-menus', "/wp-includes/js/customize-preview-nav-menus$suffix.js", array( 'jquery', 'wp-util', 'customize-preview', 'customize-selective-refresh' ), false, 1 );
 
-	$scripts->add( 'wp-custom-header', "/wp-includes/js/wp-custom-header$suffix.js", array( 'wp-a11y' ), false, 1 );
-
 	$scripts->add( 'accordion', "/wp-admin/js/accordion$suffix.js", array( 'jquery' ), false, 1 );
 
 	$scripts->add( 'shortcode', "/wp-includes/js/shortcode$suffix.js", array( 'underscore' ), false, 1 );
@@ -678,7 +674,7 @@ function wp_default_scripts( &$scripts ) {
 
 		$scripts->add( 'tags-box', "/wp-admin/js/tags-box$suffix.js", array( 'jquery', 'tags-suggest' ), false, 1 );
 
-		$scripts->add( 'tags-suggest', "/wp-admin/js/tags-suggest$suffix.js", array( 'jquery-ui-autocomplete', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'tags-suggest', "/wp-admin/js/tags-suggest$suffix.js", array( 'jquery-ui-autocomplete' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'tags-suggest', 'tagsSuggestL10n', array(
 			'tagDelimiter' => _x( ',', 'tag delimiter' ),
 			'removeTerm'   => __( 'Remove term:' ),
@@ -687,7 +683,7 @@ function wp_default_scripts( &$scripts ) {
 			'termRemoved'  => __( 'Term removed.' ),
 		) );
 
-		$scripts->add( 'post', "/wp-admin/js/post$suffix.js", array( 'suggest', 'wp-lists', 'postbox', 'tags-box', 'underscore', 'word-count', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'post', "/wp-admin/js/post$suffix.js", array( 'suggest', 'wp-lists', 'postbox', 'tags-box', 'underscore', 'word-count' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'post', 'postL10n', array(
 			'ok' => __('OK'),
 			'cancel' => __('Cancel'),
@@ -742,12 +738,12 @@ function wp_default_scripts( &$scripts ) {
 		$scripts->add( 'media-image-widget', "/wp-admin/js/widgets/media-image-widget$suffix.js", array( 'media-widgets' ) );
 		$scripts->add( 'media-gallery-widget', "/wp-admin/js/widgets/media-gallery-widget$suffix.js", array( 'media-widgets' ) );
 		$scripts->add( 'media-video-widget', "/wp-admin/js/widgets/media-video-widget$suffix.js", array( 'media-widgets', 'media-audiovideo', 'wp-api-request' ) );
-		$scripts->add( 'text-widgets', "/wp-admin/js/widgets/text-widgets$suffix.js", array( 'jquery', 'backbone', 'editor', 'wp-util', 'wp-a11y' ) );
-		$scripts->add( 'custom-html-widgets', "/wp-admin/js/widgets/custom-html-widgets$suffix.js", array( 'jquery', 'backbone', 'wp-util', 'jquery-ui-core', 'wp-a11y' ) );
+		$scripts->add( 'text-widgets', "/wp-admin/js/widgets/text-widgets$suffix.js", array( 'jquery', 'backbone', 'editor', 'wp-util' ) );
+		$scripts->add( 'custom-html-widgets', "/wp-admin/js/widgets/custom-html-widgets$suffix.js", array( 'jquery', 'backbone', 'wp-util', 'jquery-ui-core' ) );
 
-		$scripts->add( 'theme', "/wp-admin/js/theme$suffix.js", array( 'wp-backbone', 'wp-a11y', 'customize-base' ), false, 1 );
+		$scripts->add( 'theme', "/wp-admin/js/theme$suffix.js", array( 'wp-backbone', 'customize-base' ), false, 1 );
 
-		$scripts->add( 'inline-edit-post', "/wp-admin/js/inline-edit-post$suffix.js", array( 'jquery', 'tags-suggest', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'inline-edit-post', "/wp-admin/js/inline-edit-post$suffix.js", array( 'jquery', 'tags-suggest' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'inline-edit-post', 'inlineEditL10n', array(
 			'error'      => __( 'Error while saving the changes.' ),
 			'ntdeltitle' => __( 'Remove From Bulk Edit' ),
@@ -756,7 +752,7 @@ function wp_default_scripts( &$scripts ) {
 			'saved'      => __( 'Changes saved.' ),
 		) );
 
-		$scripts->add( 'inline-edit-tax', "/wp-admin/js/inline-edit-tax$suffix.js", array( 'jquery', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'inline-edit-tax', "/wp-admin/js/inline-edit-tax$suffix.js", array( 'jquery' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'inline-edit-tax', 'inlineEditL10n', array(
 			'error' => __( 'Error while saving the changes.' ),
 			'saved' => __( 'Changes saved.' ),
@@ -769,7 +765,7 @@ function wp_default_scripts( &$scripts ) {
 			'ays' => __('Are you sure you want to install this plugin?')
 		) );
 
-		$scripts->add( 'updates', "/wp-admin/js/updates$suffix.js", array( 'jquery', 'wp-util', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'updates', "/wp-admin/js/updates$suffix.js", array( 'jquery', 'wp-util' ), false, 1 );
 		did_action( 'init' ) && $scripts->localize( 'updates', '_wpUpdatesSettings', array(
 			'ajax_nonce' => wp_create_nonce( 'updates' ),
 			'l10n'       => array(
@@ -868,7 +864,7 @@ function wp_default_scripts( &$scripts ) {
 			'defaultLabel'     => __( 'Color value' ),
 		) );
 
-		$scripts->add( 'dashboard', "/wp-admin/js/dashboard$suffix.js", array( 'jquery', 'admin-comments', 'postbox', 'wp-util', 'wp-a11y' ), false, 1 );
+		$scripts->add( 'dashboard', "/wp-admin/js/dashboard$suffix.js", array( 'jquery', 'admin-comments', 'postbox', 'wp-util' ), false, 1 );
 
 		$scripts->add( 'list-revisions', "/wp-includes/js/wp-list-revisions$suffix.js" );
 
@@ -1208,7 +1204,6 @@ function wp_localize_community_events() {
 			 */
 			'could_not_locate_city' => __( 'We couldn&#8217;t locate %s. Please try another nearby city. For example: Kansas City; Springfield; Portland.' ),
 
-			// This one is only used with wp.a11y.speak(), so it can/should be more brief.
 			/* translators: %s: the name of a city */
 			'city_updated' => __( 'City updated. Listing events near %s.' ),
 		)
