@@ -1633,8 +1633,6 @@ function wp_widgets_init() {
 
 	register_widget( 'WP_Widget_Recent_Comments' );
 
-	register_widget( 'WP_Widget_RSS' );
-
 	register_widget( 'WP_Widget_Tag_Cloud' );
 
 	register_widget( 'WP_Nav_Menu_Widget' );
