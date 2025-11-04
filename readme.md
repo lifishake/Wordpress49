@@ -24,7 +24,7 @@
 3. 2025/10/28 -- version_compare第一个参增加非null判断。 -- \wp-admin\includes\update.php  on line 608
 4. 2025/10/28 -- compact()使用前要求每个变量都已经被定义。增加$groupby赋初始值。 -- class-wp-comment-query.php on line 459
 5. 2025/10/28 -- 去掉\wp-includes\comment.php get_comment第一个参数前面的取地址符。这会导致\wp-includes\class-wp-comment-query.php on line 460的警告。
-6. 2025/11/04 -- 用5.3.0的date_i18n()替换掉wp-includes\functions.php中的date_i18n()。在切换timezone的时候会报第一个参不能为空。\wp-includes\functions.php on line 126
+6. 2025/11/04 -- date_i18n()中调用date_create()的第一个参从null改成'now'。在切换timezone的时候会报第一个参不能为空。\wp-includes\functions.php on line 126
 
 ### Updates
 1. 2025/10/29 -- http_build_query() 第二个参，从null改成'' -- \wp-includes\update.php on line 341
