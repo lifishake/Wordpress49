@@ -44,3 +44,8 @@
 1. 2025/10/29 -- array_merge()不能为空。采用6.9版的写法。 -- wp-includes\widgets.php on line 1160
 2. 2025/10/29 -- nav-menus.php增加$title的初值。
 3. 2025/10/29 -- validate_file() 增加参数判断，为null时直接return false -- ..\functions.php:5276
+
+## 静态解析
+1. 2025/11/11 -- 删除spl-autoload-compat.php，以及compat.php中对文件的引用。这是php5.1以前的补丁，早已用不上。
+2. 2025/11/12 -- 修改花括号访问数组为方括号。
+3. 2025/11/13 -- 增加部分compact()函数调用前的变量初值赋值。
