@@ -548,9 +548,6 @@ function upgrade_all() {
 	if ( $wp_current_db_version < 4772 )
 		upgrade_210();
 
-	if ( $wp_current_db_version < 4351 )
-		upgrade_old_slugs();
-
 	if ( $wp_current_db_version < 5539 )
 		upgrade_230();
 
@@ -1197,20 +1194,6 @@ function upgrade_230_old_tables() {
 	$wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'categories');
 	$wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'link2cat');
 	$wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'post2cat');
-}
-
-/**
- * Upgrade old slugs made in version 2.2.
- *
- * @ignore
- * @since 2.2.0
- *
- * @global wpdb $wpdb WordPress database abstraction object.
- */
-function upgrade_old_slugs() {
-	// Upgrade people who were using the Redirect Old Slugs plugin.
-	global $wpdb;
-	$wpdb->query("UPDATE $wpdb->postmeta SET meta_key = '_wp_old_slug' WHERE meta_key = 'old_slug'");
 }
 
 /**

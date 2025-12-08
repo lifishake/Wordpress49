@@ -347,15 +347,6 @@ add_action( 'delete_post',                '_wp_delete_customize_changeset_depend
 add_action( 'begin_fetch_post_thumbnail_html', '_wp_post_thumbnail_class_filter_add'    );
 add_action( 'end_fetch_post_thumbnail_html',   '_wp_post_thumbnail_class_filter_remove' );
 
-// Redirect Old Slugs
-add_action( 'template_redirect',  'wp_old_slug_redirect'              );
-add_action( 'post_updated',       'wp_check_for_changed_slugs', 12, 3 );
-add_action( 'attachment_updated', 'wp_check_for_changed_slugs', 12, 3 );
-
-// Redirect Old Dates
-add_action( 'post_updated',       'wp_check_for_changed_dates', 12, 3 );
-add_action( 'attachment_updated', 'wp_check_for_changed_dates', 12, 3 );
-
 // Nonce check for Post Previews
 add_action( 'init', '_show_post_preview' );
 
