@@ -1278,21 +1278,6 @@ function has_term_meta( $term_id ) {
 }
 
 /**
- * Unregisters a meta key for terms.
- *
- * @since 4.9.8
- *
- * @param string $taxonomy Taxonomy the meta key is currently registered for. Pass
- *                         an empty string if the meta key is registered across all
- *                         existing taxonomies.
- * @param string $meta_key The meta key to unregister.
- * @return bool True on success, false if the meta key was not previously registered.
- */
-function unregister_term_meta( $taxonomy, $meta_key ) {
-	return unregister_meta_key( 'term', $meta_key, $taxonomy );
-}
-
-/**
  * Check if Term exists.
  *
  * Formerly is_term(), introduced in 2.3.0.
