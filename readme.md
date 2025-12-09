@@ -18,6 +18,7 @@
 3. 2025/10/27 -- _wp_delete_tax_menu_item不能在第一个参数$object_id后面给默认值。
 
 ## wp-admin
+
 ### Home
 1. 2025/10/28 -- http_build_query() 第二个参，从null改成'' -- cURL.php on line 327
 2. 2025/10/28 -- setcookie() 第五个参，从null改成'' -- option.php on line 919,920
@@ -58,3 +59,8 @@
 2. 2025/11/12 -- 修改花括号访问数组为方括号。
 3. 2025/11/12 -- 删除_wp_json_prepare_data和array_replace_recursive。该函数在php5.4之后没用。
 4. 2025/11/13 -- 增加部分compact()函数调用前的变量初值赋值。
+5. 2025/12/08 -- 删除about画面4.9.10-4.9.28的安全维护信息
+6. 2025/12/09 -- 删除4.9.8的register_post_meta()和register_term_meta()。这两个东西是给REST API和块编辑用的。
+
+# 保留机能
+1. 2025/12/08 -- 4.9.9的函数_wp_get_allowed_postdata是个安全相关，用来判断ajax中的内容是否是合法的post字段。保留。
