@@ -61,6 +61,10 @@
 4. 2025/11/13 -- 增加部分compact()函数调用前的变量初值赋值。
 5. 2025/12/08 -- 删除about画面4.9.10-4.9.28的安全维护信息
 6. 2025/12/09 -- 删除4.9.8的register_post_meta()和register_term_meta()。这两个东西是给REST API和块编辑用的。
+7. 2025/12/09 -- 删除4.8.0的WP_Community_Event()相关内容。
+
+### REST API相关
+1. 2025/12/09 -- 删除WP_REST_Attachments_Controller()类及相关。4.7.0
 
 # 保留机能
 1. 2025/12/08 -- 4.9.9的函数_wp_get_allowed_postdata是个安全相关，用来判断ajax中的内容是否是合法的post字段。保留。

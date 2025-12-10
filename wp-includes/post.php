@@ -84,8 +84,6 @@ function create_initial_post_types() {
 		'delete_with_user' => true,
 		'supports' => array( 'title', 'author', 'comments' ),
 		'show_in_rest' => true,
-		'rest_base' => 'media',
-		'rest_controller_class' => 'WP_REST_Attachments_Controller',
 	) );
 	add_post_type_support( 'attachment:audio', 'thumbnail' );
 	add_post_type_support( 'attachment:video', 'thumbnail' );
