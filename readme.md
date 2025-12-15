@@ -62,6 +62,7 @@
 5. 2025/12/08 -- 删除about画面4.9.10-4.9.28的安全维护信息
 6. 2025/12/09 -- 删除4.9.8的register_post_meta()和register_term_meta()。这两个东西是给REST API和块编辑用的。
 7. 2025/12/09 -- 删除4.8.0的WP_Community_Event()相关内容。
+8. 2025/12/10 -- 删除4.9.6的privacy_policy页面以外所有的privacy相关内容。
 
 ### REST API相关
 1. 2025/12/09 -- 删除WP_REST_Attachments_Controller()类及相关。4.7.0
