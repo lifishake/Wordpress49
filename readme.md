@@ -28,7 +28,7 @@
 6. 2025/11/03 -- 删除后台Wordpress News。
 7. 2025/11/03 -- 删除后台Simple Pie相关内容。这个模块是订阅别人的RSS用的。
 8. 2025/11/03 -- 删除a11y，这是给残疾人读内容用的。
-6. 2025/11/04 -- date_i18n()中调用date_create()的第一个参从null改成'now'。在切换timezone的时候会报第一个参不能为空。\wp-includes\functions.php on line 126
+9. 2025/11/04 -- date_i18n()中调用date_create()的第一个参从null改成'now'。在切换timezone的时候会报第一个参不能为空。\wp-includes\functions.php on line 126
 
 ### Updates
 1. 2025/10/29 -- http_build_query() 第二个参，从null改成'' -- \wp-includes\update.php on line 341
@@ -63,9 +63,13 @@
 6. 2025/12/09 -- 删除4.9.8的register_post_meta()和register_term_meta()。这两个东西是给REST API和块编辑用的。
 7. 2025/12/09 -- 删除4.8.0的WP_Community_Event()相关内容。
 8. 2025/12/10 -- 删除4.9.6的privacy_policy页面以外所有的privacy相关内容。
+9. 2026/02/24 -- 修改/wp-includes/pomo/po.php错误的花括号用法
 
 ### REST API相关
 1. 2025/12/09 -- 删除WP_REST_Attachments_Controller()类及相关。4.7.0
+
+## 调试运行阶段
+1. 2026/05/06 -- class-wp-query.php中parse_query()函数关于$qv['w']，php7与php8对于空字符串与0的比较，算法不同。改成php8的判断条件。
 
 # 保留机能
 1. 2025/12/08 -- 4.9.9的函数_wp_get_allowed_postdata是个安全相关，用来判断ajax中的内容是否是合法的post字段。保留。
