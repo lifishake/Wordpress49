@@ -112,7 +112,7 @@ class PO extends Gettext_Translations {
 
 		$string = str_replace(array_keys($replaces), array_values($replaces), $string);
 
-		$po = $quote.implode("${slash}n$quote$newline$quote", explode($newline, $string)).$quote;
+		$po = $quote.implode("{$slash}n$quote$newline$quote", explode($newline, $string)).$quote;
 		// add empty string on first line for readbility
 		if (false !== strpos($string, $newline) &&
 				(substr_count($string, $newline) > 1 || !($newline === substr($string, -strlen($newline))))) {
