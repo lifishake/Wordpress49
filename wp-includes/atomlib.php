@@ -224,7 +224,7 @@ class AtomParser {
                 $attrs_prefix[$with_prefix[1]] = $this->xml_escape($value);
             }
 
-            $attrs_str = join(' ', array_map($this->map_attrs_func, array_keys($attrs_prefix), array_values($attrs_prefix)));
+            $attrs_str = implode(' ', array_map($this->map_attrs_func, array_keys($attrs_prefix), array_values($attrs_prefix)));
             if(strlen($attrs_str) > 0) {
                 $attrs_str = " " . $attrs_str;
             }
@@ -238,7 +238,7 @@ class AtomParser {
             $xmlns_str = '';
             if(count($this->content_ns_decls) > 0) {
                 array_unshift($this->content_ns_contexts, $this->content_ns_decls);
-                $xmlns_str .= join(' ', array_map($this->map_xmlns_func, array_keys($this->content_ns_contexts[0]), array_values($this->content_ns_contexts[0])));
+                $xmlns_str .= implode(' ', array_map($this->map_xmlns_func, array_keys($this->content_ns_contexts[0]), array_values($this->content_ns_contexts[0])));
                 if(strlen($xmlns_str) > 0) {
                     $xmlns_str = " " . $xmlns_str;
                 }
@@ -294,9 +294,9 @@ class AtomParser {
                     }
                 }
                 if(in_array($tag, $this->ATOM_CONTENT_ELEMENTS)) {
-                    $this->current->$tag = array($origtype, join('',$newcontent));
+                    $this->current->$tag = array($origtype, implode('',$newcontent));
                 } else {
-                    $this->current->$tag = join('',$newcontent);
+                    $this->current->$tag = implode('',$newcontent);
                 }
                 $this->in_content = array();
             } else if($this->in_content[$ccount-1][0] == $tag &&
@@ -351,7 +351,7 @@ class AtomParser {
 
         if(!empty($components)) {
             # re-join back the namespace component
-            $ns = join(":",$components);
+            $ns = implode(":",$components);
             foreach($this->ns_contexts as $context) {
                 foreach($context as $mapping) {
                     if($mapping[1] == $ns && strlen($mapping[0]) > 0) {

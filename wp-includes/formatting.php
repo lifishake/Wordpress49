@@ -715,7 +715,7 @@ function _get_wptexturize_split_regex( $shortcode_regex = '' ) {
  * @return string The regular expression
  */
 function _get_wptexturize_shortcode_regex( $tagnames ) {
-	$tagregexp = join( '|', array_map( 'preg_quote', $tagnames ) );
+	$tagregexp = implode( '|', array_map( 'preg_quote', $tagnames ) );
 	$tagregexp = "(?:$tagregexp)(?=[\\s\\]\\/])"; // Excerpt of get_shortcode_regex().
 	$regex =
 		  '\['              // Find start of shortcode.
@@ -814,7 +814,7 @@ function shortcode_unautop( $pee ) {
 		return $pee;
 	}
 
-	$tagregexp = join( '|', array_map( 'preg_quote', array_keys( $shortcode_tags ) ) );
+	$tagregexp = implode( '|', array_map( 'preg_quote', array_keys( $shortcode_tags ) ) );
 	$spaces = wp_spaces_regexp();
 
 	$pattern =
@@ -3233,7 +3233,7 @@ function sanitize_email( $email ) {
 	}
 
 	// Join valid subs into the new domain
-	$domain = join( '.', $new_subs );
+	$domain = implode( '.', $new_subs );
 
 	// Put the email back together
 	$email = $local . '@' . $domain;

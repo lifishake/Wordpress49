@@ -1942,7 +1942,7 @@ function get_theme_starter_content() {
 		'widgets' => array(
 			'text_business_info' => array( 'text', array(
 				'title' => _x( 'Find Us', 'Theme starter content' ),
-				'text' => join( '', array(
+				'text' => implode( '', array(
 					'<strong>' . _x( 'Address', 'Theme starter content' ) . "</strong>\n",
 					_x( '123 Main Street', 'Theme starter content' ) . "\n" . _x( 'New York, NY 10001', 'Theme starter content' ) . "\n\n",
 					'<strong>' . _x( 'Hours', 'Theme starter content' ) . "</strong>\n",

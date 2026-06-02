@@ -202,7 +202,7 @@ abstract class WP_Widget_Media extends WP_Widget {
 		}
 		$tokens = array_map( 'sanitize_html_class', $tokens );
 		$tokens = array_filter( $tokens );
-		return join( ' ', $tokens );
+		return implode( ' ', $tokens );
 	}
 
 	/**
@@ -334,7 +334,7 @@ abstract class WP_Widget_Media extends WP_Widget {
 				class="media-widget-instance-property"
 				name="<?php echo esc_attr( $this->get_field_name( $name ) ); ?>"
 				id="<?php echo esc_attr( $this->get_field_id( $name ) ); // Needed specifically by wpWidgets.appendTitle(). ?>"
-				value="<?php echo esc_attr( is_array( $value ) ? join( ',', $value ) : strval( $value ) ); ?>"
+				value="<?php echo esc_attr( is_array( $value ) ? implode( ',', $value ) : strval( $value ) ); ?>"
 			/>
 		<?php
 		endforeach;

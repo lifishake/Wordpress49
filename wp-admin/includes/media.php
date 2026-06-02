@@ -919,7 +919,7 @@ function image_align_input_fields( $post, $checked = '' ) {
 			( $checked == $name ? " checked='checked'" : "" ) .
 			" /><label for='image-align-{$name}-{$post->ID}' class='align image-align-{$name}-label'>$label</label>";
 	}
-	return join("\n", $out);
+	return implode("\n", $out);
 }
 
 /**
@@ -992,7 +992,7 @@ function image_size_input_fields( $post, $check = '' ) {
 	return array(
 		'label' => __( 'Size' ),
 		'input' => 'html',
-		'html'  => join( "\n", $out ),
+		'html'  => implode( "\n", $out ),
 	);
 }
 
@@ -1204,7 +1204,7 @@ function get_attachment_fields_to_edit($post, $errors = null) {
 
 		foreach ( $terms as $term )
 			$values[] = $term->slug;
-		$t['value'] = join(', ', $values);
+		$t['value'] = implode(', ', $values);
 
 		$form_fields[$taxonomy] = $t;
 	}
@@ -1517,7 +1517,7 @@ function get_media_item( $attachment_id, $args = null ) {
 			$item .= "<input type='text' class='text' id='$name' name='$name' value='" . esc_attr( $field['value'] ) . "'{$required_attr}{$aria_required} />";
 		}
 		if ( !empty( $field['helps'] ) )
-			$item .= "<p class='help'>" . join( "</p>\n<p class='help'>", array_unique( (array) $field['helps'] ) ) . '</p>';
+			$item .= "<p class='help'>" . implode( "</p>\n<p class='help'>", array_unique( (array) $field['helps'] ) ) . '</p>';
 		$item .= "</td>\n\t\t</tr>\n";
 
 		$extra_rows = array();
@@ -1595,7 +1595,7 @@ function get_compat_media_markup( $attachment_id, $args = null ) {
 
 			foreach ( $terms as $term )
 				$values[] = $term->slug;
-			$t['value'] = join(', ', $values);
+			$t['value'] = implode(', ', $values);
 			$t['taxonomy'] = true;
 
 			$form_fields[$taxonomy] = $t;
@@ -1673,7 +1673,7 @@ function get_compat_media_markup( $attachment_id, $args = null ) {
 			$item .= "<input type='text' class='text' id='$id_attr' name='$name' value='" . esc_attr( $field['value'] ) . "' $readonly{$required_attr}{$aria_required} />";
 		}
 		if ( !empty( $field['helps'] ) )
-			$item .= "<p class='help'>" . join( "</p>\n<p class='help'>", array_unique( (array) $field['helps'] ) ) . '</p>';
+			$item .= "<p class='help'>" . implode( "</p>\n<p class='help'>", array_unique( (array) $field['helps'] ) ) . '</p>';
 		$item .= "</td>\n\t\t</tr>\n";
 
 		$extra_rows = array();

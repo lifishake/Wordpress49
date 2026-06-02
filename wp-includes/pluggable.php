@@ -2547,7 +2547,7 @@ function get_avatar( $id_or_email, $size = 96, $default = '', $alt = '', $args =
 		esc_attr( $args['alt'] ),
 		esc_url( $url ),
 		esc_url( $url2x ) . ' 2x',
-		esc_attr( join( ' ', $class ) ),
+		esc_attr( implode( ' ', $class ) ),
 		(int) $args['height'],
 		(int) $args['width'],
 		$args['extra_attr']

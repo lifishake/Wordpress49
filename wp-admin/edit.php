@@ -116,7 +116,7 @@ if ( $doaction ) {
 				$trashed++;
 			}
 
-			$sendback = add_query_arg( array('trashed' => $trashed, 'ids' => join(',', $post_ids), 'locked' => $locked ), $sendback );
+			$sendback = add_query_arg( array('trashed' => $trashed, 'ids' => implode(',', $post_ids), 'locked' => $locked ), $sendback );
 			break;
 		case 'untrash':
 			$untrashed = 0;
@@ -336,7 +336,7 @@ foreach ( $bulk_counts as $message => $count ) {
 }
 
 if ( $messages )
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . join( ' ', $messages ) . '</p></div>';
+	echo '<div id="message" class="updated notice is-dismissible"><p>' . implode( ' ', $messages ) . '</p></div>';
 unset( $messages );
 
 $_SERVER['REQUEST_URI'] = remove_query_arg( array( 'locked', 'skipped', 'updated', 'deleted', 'trashed', 'untrashed' ), $_SERVER['REQUEST_URI'] );

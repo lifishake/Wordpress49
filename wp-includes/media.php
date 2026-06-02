@@ -876,7 +876,7 @@ function wp_get_attachment_image($attachment_id, $size = 'thumbnail', $icon = fa
 		$hwstring = image_hwstring($width, $height);
 		$size_class = $size;
 		if ( is_array( $size_class ) ) {
-			$size_class = join( 'x', $size_class );
+			$size_class = implode( 'x', $size_class );
 		}
 		$attachment = get_post($attachment_id);
 		$default_attr = array(
@@ -2365,7 +2365,7 @@ function wp_audio_shortcode( $attr, $content = '' ) {
 	if ( 'mediaelement' === $library && 1 === $instance ) {
 		$html .= "<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->\n";
 	}
-	$html .= sprintf( '<audio %s controls="controls">', join( ' ', $attr_strings ) );
+	$html .= sprintf( '<audio %s controls="controls">', implode( ' ', $attr_strings ) );
 
 	$fileurl = '';
 	$source = '<source type="%s" src="%s" />';
@@ -2625,7 +2625,7 @@ function wp_video_shortcode( $attr, $content = '' ) {
 	if ( 'mediaelement' === $library && 1 === $instance ) {
 		$html .= "<!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->\n";
 	}
-	$html .= sprintf( '<video %s controls="controls">', join( ' ', $attr_strings ) );
+	$html .= sprintf( '<video %s controls="controls">', implode( ' ', $attr_strings ) );
 
 	$fileurl = '';
 	$source = '<source type="%s" src="%s" />';

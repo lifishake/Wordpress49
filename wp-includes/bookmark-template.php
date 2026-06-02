@@ -218,7 +218,7 @@ function wp_list_bookmarks( $args = '' ) {
 		$r['class'] = explode( ' ', $r['class'] );
 	}
  	$r['class'] = array_map( 'sanitize_html_class', $r['class'] );
- 	$r['class'] = trim( join( ' ', $r['class'] ) );
+ 	$r['class'] = trim( implode( ' ', $r['class'] ) );
 
 	if ( $r['categorize'] ) {
 		$cats = get_terms( 'link_category', array(

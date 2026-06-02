@@ -139,7 +139,7 @@ if ( $doaction ) {
 				if ( !wp_trash_post( $post_id ) )
 					wp_die( __( 'Error in moving to Trash.' ) );
 			}
-			$location = add_query_arg( array( 'trashed' => count( $post_ids ), 'ids' => join( ',', $post_ids ) ), $location );
+			$location = add_query_arg( array( 'trashed' => count( $post_ids ), 'ids' => implode( ',', $post_ids ) ), $location );
 			break;
 		case 'untrash':
 			if ( !isset( $post_ids ) )

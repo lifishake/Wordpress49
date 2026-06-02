@@ -1112,7 +1112,7 @@ class WP_Posts_List_Table extends WP_List_Table {
 					$out[] = $this->get_edit_link( $posts_in_term_qv, $label );
 				}
 				/* translators: used between list items, there is a space after the comma */
-				echo join( __( ', ' ), $out );
+				echo implode( ', ', $out );
 			} else {
 				echo '<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">' . $taxonomy_object->labels->no_terms . '</span>';
 			}

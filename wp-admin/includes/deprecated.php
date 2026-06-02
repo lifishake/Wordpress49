@@ -258,7 +258,7 @@ function get_editable_authors( $user_id ) {
 	if ( !$editable ) {
 		return false;
 	} else {
-		$editable = join(',', $editable);
+		$editable = implode(',', $editable);
 		$authors = $wpdb->get_results( "SELECT * FROM $wpdb->users WHERE ID IN ($editable) ORDER BY display_name" );
 	}
 
@@ -696,7 +696,7 @@ function get_others_unpublished_posts( $user_id, $type = 'any' ) {
 	if ( !$editable ) {
 		$other_unpubs = '';
 	} else {
-		$editable = join(',', $editable);
+		$editable = implode(',', $editable);
 		$other_unpubs = $wpdb->get_results( $wpdb->prepare("SELECT ID, post_title, post_author FROM $wpdb->posts WHERE post_type = 'post' AND $type_sql AND post_author IN ($editable) AND post_author != %d ORDER BY post_modified $dir", $user_id) );
 	}
 

@@ -427,7 +427,7 @@ function comment_author_url_link( $linktext = '', $before = '', $after = '', $co
  */
 function comment_class( $class = '', $comment = null, $post_id = null, $echo = true ) {
 	// Separates classes with a single space, collates classes for comment DIV
-	$class = 'class="' . join( ' ', get_comment_class( $class, $comment, $post_id ) ) . '"';
+	$class = 'class="' . implode( ' ', get_comment_class( $class, $comment, $post_id ) ) . '"';
 	if ( $echo)
 		echo $class;
 	else
@@ -601,7 +601,7 @@ function get_comment_excerpt( $comment_ID = 0 ) {
 		$words = array_slice( $words, 0, $comment_excerpt_length );
 	}
 
-	$excerpt = trim( join( ' ', $words ) );
+	$excerpt = trim( implode( ' ', $words ) );
 	if ( $use_ellipsis ) {
 		$excerpt .= '&hellip;';
 	}

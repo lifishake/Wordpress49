@@ -119,7 +119,7 @@ if ( $doaction ) {
 	if ( $deleted )
 		$redirect_to = add_query_arg( 'deleted', $deleted, $redirect_to );
 	if ( $trashed || $spammed )
-		$redirect_to = add_query_arg( 'ids', join( ',', $comment_ids ), $redirect_to );
+		$redirect_to = add_query_arg( 'ids', implode( ',', $comment_ids ), $redirect_to );
 
 	wp_safe_redirect( $redirect_to );
 	exit;

@@ -559,7 +559,7 @@ function _prime_site_caches( $ids ) {
 
 	$non_cached_ids = _get_non_cached_ids( $ids, 'sites' );
 	if ( ! empty( $non_cached_ids ) ) {
-		$fresh_sites = $wpdb->get_results( sprintf( "SELECT * FROM $wpdb->blogs WHERE blog_id IN (%s)", join( ",", array_map( 'intval', $non_cached_ids ) ) ) );
+		$fresh_sites = $wpdb->get_results( sprintf( "SELECT * FROM $wpdb->blogs WHERE blog_id IN (%s)", implode( ",", array_map( 'intval', $non_cached_ids ) ) ) );
 
 		update_site_cache( $fresh_sites );
 	}
@@ -1233,7 +1233,7 @@ function _prime_network_caches( $network_ids ) {
 
 	$non_cached_ids = _get_non_cached_ids( $network_ids, 'networks' );
 	if ( !empty( $non_cached_ids ) ) {
-		$fresh_networks = $wpdb->get_results( sprintf( "SELECT $wpdb->site.* FROM $wpdb->site WHERE id IN (%s)", join( ",", array_map( 'intval', $non_cached_ids ) ) ) );
+		$fresh_networks = $wpdb->get_results( sprintf( "SELECT $wpdb->site.* FROM $wpdb->site WHERE id IN (%s)", implode( ",", array_map( 'intval', $non_cached_ids ) ) ) );
 
 		update_network_cache( $fresh_networks );
 	}
